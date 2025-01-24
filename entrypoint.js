@@ -6,7 +6,7 @@ const { fetchSheetData: pullMain } = require('./scripts/pull-google-sheets-to-js
 
 // Function to list the contents of the root folder
 const listRootFolderContents = () => {
-    const rootFolder = process.cwd();
+    const rootFolder = __dirname;
     const files = fs.readdirSync(rootFolder);
     core.info(`Root folder contents: ${files.join(', ')}`);
 };
@@ -36,6 +36,7 @@ if (!localizationRoot) {
 let googleApiKeyJson;
 try {
     googleApiKeyJson = JSON.parse(googleApiKeyJsonRaw);
+    core.info('Parsed Google API Key JSON successfully.');
 } catch (error) {
     core.setFailed('Invalid Google API Key JSON.');
     process.exit(1);
@@ -52,7 +53,13 @@ listRootFolderContents();
 
 // Write the Google API key to a file
 const googleApiKeyFilePath = path.join(__dirname, 'google-api-key.json');
-fs.writeFileSync(googleApiKeyFilePath, JSON.stringify(googleApiKeyJson));
+try {
+    fs.writeFileSync(googleApiKeyFilePath, JSON.stringify(googleApiKeyJson));
+    core.info(`Google API key file created at: ${googleApiKeyFilePath}`);
+} catch (error) {
+    core.setFailed(`Failed to write Google API key file: ${error.message}`);
+    process.exit(1);
+}
 
 process.env.GOOGLE_APPLICATION_CREDENTIALS = googleApiKeyFilePath;
 process.env.SPREADSHEET_ID = spreadsheetId;
@@ -61,6 +68,7 @@ process.env.LOCALIZATION_ROOT = localizationRoot;
 const cleanUp = () => {
     if (fs.existsSync(googleApiKeyFilePath)) {
         fs.unlinkSync(googleApiKeyFilePath);
+        core.info(`Google API key file deleted: ${googleApiKeyFilePath}`);
     }
 };
 
