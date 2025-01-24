@@ -34,6 +34,7 @@ const processSheet = async (sheetName, rows, localizationRoot) => {
             const value = row[i];
             if (value) { // Only add non-empty values
                 if (!jsonFiles[lang].texts && !jsonFiles[lang].Texts) jsonFiles[lang].texts = {};
+                if (!jsonFiles[lang].texts) jsonFiles[lang].texts = {}; // Ensure texts is initialized
                 jsonFiles[lang].texts[key] = value;
             }
         }
