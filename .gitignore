@@ -33,3 +33,5 @@ Thumbs.db
 # Dist directory
 dist/
 !dist/index.js
+!dist/scripts/
+!dist/scripts/**

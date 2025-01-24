@@ -27603,9 +27603,9 @@ process.env.LOCALIZATION_ROOT = localizationRoot;
 
 try {
     if (action === 'push') {
-        execSync('node ./scripts/push-json-to-google-sheets.js', { stdio: 'inherit' });
+        execSync('node ./dist/scripts/push-json-to-google-sheets.js', { stdio: 'inherit' });
     } else if (action === 'pull') {
-        execSync('node ./scripts/pull-google-sheets-to-json.js', { stdio: 'inherit' });
+        execSync('node ./dist/scripts/pull-google-sheets-to-json.js', { stdio: 'inherit' });
     } else {
         core.setFailed(`Unknown action: ${action}`);
         process.exit(1);
