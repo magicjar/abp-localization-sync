@@ -19,6 +19,6 @@ jobs:
         uses: ./  # Use the local action
         with:
           action: push
-          google_api_key_json: ${{ secrets.GOOGLE_API_KEY_JSON }}
+          google_api_key_json: '${{ secrets.GOOGLE_API_KEY_JSON }}'
           spreadsheet_id: ${{ vars.SPREADSHEET_ID }}
           localization_root: ./Acme.BookStore/src/Acme.BookStore.Domain.Shared/Localization
