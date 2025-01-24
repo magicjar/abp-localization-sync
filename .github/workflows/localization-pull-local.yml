@@ -19,7 +19,7 @@ jobs:
         run: npm install
 
       - name: Pull Google Sheets to JSON
-        run: node entrypoint.js pull "${{ secrets.GOOGLE_API_KEY_JSON }}" "${{ vars.SPREADSHEET_ID }}" "./Acme.BookStore/src/Acme.BookStore.Domain.Shared/Localization"
+        run: node entrypoint.js pull '${{ secrets.GOOGLE_API_KEY_JSON }}' '${{ vars.SPREADSHEET_ID }}' './Acme.BookStore/src/Acme.BookStore.Domain.Shared/Localization'
 
       - name: Add localization files
         run: git add Acme.BookStore/src/Acme.BookStore.Domain.Shared/Localization/**/*.json
