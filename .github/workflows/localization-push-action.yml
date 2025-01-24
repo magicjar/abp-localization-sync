@@ -2,11 +2,6 @@ name: Localization Push
 
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - main
-    paths:
-      - localization/**/*.json
 
 jobs:
   sync_localizations:
