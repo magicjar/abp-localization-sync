@@ -41,9 +41,10 @@ core.info(`Spreadsheet ID: ${spreadsheetId}`);
 core.info(`Localization Root: ${localizationRoot}`);
 
 // Write the Google API key to a file
-fs.writeFileSync('google-api-key.json', JSON.stringify(googleApiKeyJson));
+const googleApiKeyFilePath = path.join(__dirname, 'google-api-key.json');
+fs.writeFileSync(googleApiKeyFilePath, JSON.stringify(googleApiKeyJson));
 
-process.env.GOOGLE_APPLICATION_CREDENTIALS = 'google-api-key.json';
+process.env.GOOGLE_APPLICATION_CREDENTIALS = googleApiKeyFilePath;
 process.env.SPREADSHEET_ID = spreadsheetId;
 process.env.LOCALIZATION_ROOT = localizationRoot;
 
@@ -62,4 +63,4 @@ try {
 }
 
 // Clean up the Google API key file
-fs.unlinkSync('google-api-key.json');
+fs.unlinkSync(googleApiKeyFilePath);
