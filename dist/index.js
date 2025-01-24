@@ -27558,22 +27558,15 @@ var __webpack_exports__ = {};
 const core = __nccwpck_require__(7484);
 const { execSync } = __nccwpck_require__(5317);
 const fs = __nccwpck_require__(9896);
+const path = __nccwpck_require__(6928);
 
+// Get inputs
 const action = core.getInput('action');
 const googleApiKeyJsonRaw = core.getInput('google_api_key_json');
 const spreadsheetId = core.getInput('spreadsheet_id');
 const localizationRoot = core.getInput('localization_root');
 
-// Parse the JSON
-let googleApiKeyJson;
-try {
-    googleApiKeyJson = JSON.parse(googleApiKeyJsonRaw);
-} catch (error) {
-    core.setFailed('Invalid Google API Key JSON.');
-    process.exit(1);
-}
-
-if (!googleApiKeyJson) {
+if (!googleApiKeyJsonRaw) {
     core.setFailed('Google API Key JSON is required.');
     process.exit(1);
 }
@@ -27585,6 +27578,15 @@ if (!spreadsheetId) {
 
 if (!localizationRoot) {
     core.setFailed('Localization root directory is required.');
+    process.exit(1);
+}
+
+// Parse the Google API Key JSON
+let googleApiKeyJson;
+try {
+    googleApiKeyJson = JSON.parse(googleApiKeyJsonRaw);
+} catch (error) {
+    core.setFailed('Invalid Google API Key JSON.');
     process.exit(1);
 }
 
@@ -27602,16 +27604,18 @@ process.env.SPREADSHEET_ID = spreadsheetId;
 process.env.LOCALIZATION_ROOT = localizationRoot;
 
 try {
+    let scriptPath;
     if (action === 'push') {
-        const scriptPath = __nccwpck_require__.ab + "push-json-to-google-sheets.js";
-        execSync(`node ${scriptPath}`, { stdio: 'inherit' });
+        scriptPath = __nccwpck_require__.ab + "push-json-to-google-sheets.js";
     } else if (action === 'pull') {
-        const scriptPath = __nccwpck_require__.ab + "pull-google-sheets-to-json.js";
-        execSync(`node ${scriptPath}`, { stdio: 'inherit' });
+        scriptPath = __nccwpck_require__.ab + "pull-google-sheets-to-json.js";
     } else {
         core.setFailed(`Unknown action: ${action}`);
         process.exit(1);
     }
+
+    // Execute the corresponding script
+    execSync(`node ${scriptPath}`, { stdio: 'inherit' });
 } catch (error) {
     core.setFailed(`Action failed with error: ${error.message}`);
     process.exit(1);
