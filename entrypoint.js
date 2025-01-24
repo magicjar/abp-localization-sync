@@ -6,6 +6,24 @@ const googleApiKeyJson = process.argv[3];
 const spreadsheetId = process.argv[4];
 const localizationRoot = process.argv[5];
 
+if (!googleApiKeyJson) {
+  throw new Error('Google API Key JSON is required.');
+}
+
+if (!spreadsheetId) {
+  throw new Error('Google Sheets Spreadsheet ID is required.');
+}
+
+if (!localizationRoot) {
+  throw new Error('Localization root directory is required.');
+}
+
+// Debug logging
+console.log('Action:', action);
+console.log('Google API Key JSON:', googleApiKeyJson ? 'Provided' : 'Not Provided');
+console.log('Spreadsheet ID:', spreadsheetId);
+console.log('Localization Root:', localizationRoot);
+
 // Write the Google API key to a file
 fs.writeFileSync('google-api-key.json', googleApiKeyJson);
 

@@ -80,6 +80,10 @@ const main = async () => {
     const keyFilePath = process.env.GOOGLE_APPLICATION_CREDENTIALS;
     const localizationRoot = process.env.LOCALIZATION_ROOT;
 
+    // Debug logging
+    console.log('Google API Key File Path:', keyFilePath);
+    console.log('Localization Root:', localizationRoot);
+
     if (!keyFilePath || !fs.existsSync(keyFilePath)) {
         throw new Error('Google API credentials file not found. Ensure GOOGLE_APPLICATION_CREDENTIALS is set.');
     }
