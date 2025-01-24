@@ -1,4 +1,4 @@
-name: Localization Pull Action
+name: Localization Pull Local
 
 on:
   workflow_dispatch:
@@ -16,12 +16,7 @@ jobs:
           node-version: 20
 
       - name: Pull Google Sheets to JSON
-        uses: ./  # Use the local action
-        with:
-          action: pull
-          google_api_key_json: ${{ secrets.GOOGLE_API_KEY_JSON }}
-          spreadsheet_id: ${{ vars.SPREADSHEET_ID }}
-          localization_root: ./Acme.BookStore/src/Acme.BookStore.Domain.Shared/Localization
+        run: node entrypoint.js pull "${{ secrets.GOOGLE_API_KEY_JSON }}" "${{ vars.SPREADSHEET_ID }}" "./Acme.BookStore/src/Acme.BookStore.Domain.Shared/Localization"
 
       - name: Add localization files
         run: git add Acme.BookStore/src/Acme.BookStore.Domain.Shared/Localization/**/*.json

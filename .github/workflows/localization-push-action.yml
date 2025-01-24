@@ -1,4 +1,4 @@
-name: Localization Push
+name: Localization Push Action
 
 on:
   workflow_dispatch:
