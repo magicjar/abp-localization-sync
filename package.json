@@ -2,16 +2,18 @@
   "name": "abp-localization-sync",
   "version": "1.0.0",
   "description": "GitHub Action to sync localization data with Google Sheets",
-  "main": "entrypoint.js",
+  "main": "dist/index.js",
   "dependencies": {
-    "googleapis": "^144.0.0",
     "@actions/core": "^1.11.1",
-    "@actions/github": "^6.0.0"
+    "@actions/github": "^6.0.0",
+    "googleapis": "^144.0.0"
   },
   "devDependencies": {
+    "@vercel/ncc": "^0.38.3",
     "jest": "^29.7.0"
   },
   "scripts": {
+    "build": "ncc build entrypoint.js -o dist",
     "test": "jest"
   }
 }
