@@ -18,7 +18,7 @@ const parseLocalizationFiles = (folderPath) => {
         languages.push(lang);
 
         const jsonData = JSON.parse(fs.readFileSync(`${folderPath}/${file}`, 'utf8'));
-        const texts = jsonData.Texts || jsonData.texts;
+        const texts = jsonData.texts || jsonData.Texts || {}; // Use 'texts' or 'Texts' if they exist, otherwise default to {}
         for (const [key, value] of Object.entries(texts)) {
             if (!translations[key]) translations[key] = {};
             if (value) { // Only add non-empty values

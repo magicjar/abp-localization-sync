@@ -22,7 +22,7 @@ const processSheet = async (sheetName, rows, localizationRoot) => {
         if (fs.existsSync(filePath)) {
             jsonFiles[lang] = JSON.parse(fs.readFileSync(filePath, 'utf8'));
         } else {
-            jsonFiles[lang] = { Culture: lang, Texts: {} };
+            jsonFiles[lang] = { culture: lang, texts: {} };
         }
     }
 
@@ -33,8 +33,8 @@ const processSheet = async (sheetName, rows, localizationRoot) => {
             const lang = languages[i - 1];
             const value = row[i];
             if (value) { // Only add non-empty values
-                if (!jsonFiles[lang].Texts) jsonFiles[lang].Texts = {};
-                jsonFiles[lang].Texts[key] = value;
+                if (!jsonFiles[lang].texts && !jsonFiles[lang].Texts) jsonFiles[lang].texts = {};
+                jsonFiles[lang].texts[key] = value;
             }
         }
     }
