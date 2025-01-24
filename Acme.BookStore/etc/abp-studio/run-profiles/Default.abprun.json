@@ -1,0 +1,13 @@
+﻿{
+  "applications": {
+    "Acme.BookStore.Web": {
+      "type": "dotnet-project",
+      "launchUrl": "https://localhost:44356",
+      "path": "../../../src/Acme.BookStore.Web/Acme.BookStore.Web.csproj",
+      "kubernetesService": ".*-web$",
+      "execution": {
+        "order": 2
+      }
+    }
+  }
+}
