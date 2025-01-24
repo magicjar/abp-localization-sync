@@ -33,9 +33,11 @@ const processSheet = async (sheetName, rows, localizationRoot) => {
             const lang = languages[i - 1];
             const value = row[i];
             if (value) { // Only add non-empty values
-                if (!jsonFiles[lang].texts && !jsonFiles[lang].Texts) jsonFiles[lang].texts = {};
-                if (!jsonFiles[lang].texts) jsonFiles[lang].texts = {}; // Ensure texts is initialized
-                jsonFiles[lang].texts[key] = value;
+                if (!jsonFiles[lang].texts && !jsonFiles[lang].Texts) {
+                    jsonFiles[lang].texts = {};
+                }
+                const textsKey = jsonFiles[lang].texts ? 'texts' : 'Texts';
+                jsonFiles[lang][textsKey][key] = value;
             }
         }
     }
