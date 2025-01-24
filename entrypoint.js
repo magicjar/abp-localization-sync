@@ -4,6 +4,13 @@ const path = require('path');
 const { main: pushMain } = require('./scripts/push-json-to-google-sheets');
 const { fetchSheetData: pullMain } = require('./scripts/pull-google-sheets-to-json');
 
+// Function to list the contents of the root folder
+const listRootFolderContents = () => {
+    const rootFolder = process.cwd();
+    const files = fs.readdirSync(rootFolder);
+    core.info(`Root folder contents: ${files.join(', ')}`);
+};
+
 // Get inputs
 const action = core.getInput('action');
 const googleApiKeyJsonRaw = core.getInput('google_api_key_json');
@@ -39,6 +46,9 @@ core.info(`Action: ${action}`);
 core.info(`Google API Key JSON: ${googleApiKeyJson ? 'Provided' : 'Not Provided'}`);
 core.info(`Spreadsheet ID: ${spreadsheetId}`);
 core.info(`Localization Root: ${localizationRoot}`);
+
+// List the contents of the root folder
+listRootFolderContents();
 
 // Write the Google API key to a file
 const googleApiKeyFilePath = path.join(__dirname, 'google-api-key.json');
