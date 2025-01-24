@@ -64,30 +64,22 @@ const cleanUp = () => {
     }
 };
 
-try {
-    if (action === 'push') {
-        pushMain().then(() => {
-            cleanUp();
-        }).catch((error) => {
-            core.setFailed(`Action failed with error: ${error.message}`);
-            cleanUp();
+const runAction = async () => {
+    try {
+        if (action === 'push') {
+            await pushMain();
+        } else if (action === 'pull') {
+            await pullMain();
+        } else {
+            core.setFailed(`Unknown action: ${action}`);
             process.exit(1);
-        });
-    } else if (action === 'pull') {
-        pullMain().then(() => {
-            cleanUp();
-        }).catch((error) => {
-            core.setFailed(`Action failed with error: ${error.message}`);
-            cleanUp();
-            process.exit(1);
-        });
-    } else {
-        core.setFailed(`Unknown action: ${action}`);
-        cleanUp();
+        }
+    } catch (error) {
+        core.setFailed(`Action failed with error: ${error.message}`);
         process.exit(1);
+    } finally {
+        cleanUp();
     }
-} catch (error) {
-    core.setFailed(`Action failed with error: ${error.message}`);
-    cleanUp();
-    process.exit(1);
-}
+};
+
+runAction();
