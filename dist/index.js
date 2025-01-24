@@ -27603,9 +27603,11 @@ process.env.LOCALIZATION_ROOT = localizationRoot;
 
 try {
     if (action === 'push') {
-        execSync('node ./dist/scripts/push-json-to-google-sheets.js', { stdio: 'inherit' });
+        const scriptPath = __nccwpck_require__.ab + "push-json-to-google-sheets.js";
+        execSync(`node ${scriptPath}`, { stdio: 'inherit' });
     } else if (action === 'pull') {
-        execSync('node ./dist/scripts/pull-google-sheets-to-json.js', { stdio: 'inherit' });
+        const scriptPath = __nccwpck_require__.ab + "pull-google-sheets-to-json.js";
+        execSync(`node ${scriptPath}`, { stdio: 'inherit' });
     } else {
         core.setFailed(`Unknown action: ${action}`);
         process.exit(1);

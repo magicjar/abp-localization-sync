@@ -29,9 +29,3 @@ Thumbs.db
 .vscode/
 .idea/
 *.swp
-
-# Dist directory
-dist/
-!dist/index.js
-!dist/scripts/
-!dist/scripts/**

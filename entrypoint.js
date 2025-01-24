@@ -46,10 +46,10 @@ process.env.LOCALIZATION_ROOT = localizationRoot;
 
 try {
     if (action === 'push') {
-        const scriptPath = require.resolve('./dist/scripts/push-json-to-google-sheets.js');
+        const scriptPath = require.resolve('./scripts/push-json-to-google-sheets.js');
         execSync(`node ${scriptPath}`, { stdio: 'inherit' });
     } else if (action === 'pull') {
-        const scriptPath = require.resolve('./dist/scripts/pull-google-sheets-to-json.js');
+        const scriptPath = require.resolve('./scripts/pull-google-sheets-to-json.js');
         execSync(`node ${scriptPath}`, { stdio: 'inherit' });
     } else {
         core.setFailed(`Unknown action: ${action}`);
