@@ -25,6 +25,8 @@ jobs:
         run: git add Acme.BookStore/src/Acme.BookStore.Domain.Shared/Localization/**/*.json
 
       - name: Commit changes
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
@@ -34,5 +36,3 @@ jobs:
             git commit -m "Updated localizations from Google Sheets"
             git push
           fi
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
