@@ -15,5 +15,8 @@ jobs:
         with:
           node-version: 20
 
+      - name: Install dependencies
+        run: npm install
+
       - name: Push JSON to Google Sheets
         run: node entrypoint.js push "${{ secrets.GOOGLE_API_KEY_JSON }}" "${{ vars.SPREADSHEET_ID }}" "./Acme.BookStore/src/Acme.BookStore.Domain.Shared/Localization"
