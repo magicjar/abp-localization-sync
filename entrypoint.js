@@ -3,6 +3,10 @@ const { execSync } = require('child_process');
 const fs = require('fs');
 const path = require('path');
 
+// Import the scripts to ensure they are included in the bundle
+require('./scripts/push-json-to-google-sheets');
+require('./scripts/pull-google-sheets-to-json');
+
 // Get inputs
 const action = core.getInput('action');
 const googleApiKeyJsonRaw = core.getInput('google_api_key_json');
