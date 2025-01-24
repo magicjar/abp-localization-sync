@@ -1,7 +1,8 @@
 import core from '@actions/core';
-import { execSync } from 'child_process';
 import fs from 'fs';
 import path from 'path';
+import { main as pushMain } from './scripts/push-json-to-google-sheets.js';
+import { fetchSheetData as pullMain } from './scripts/pull-google-sheets-to-json.js';
 
 // Get inputs
 const action = core.getInput('action');
@@ -47,18 +48,14 @@ process.env.SPREADSHEET_ID = spreadsheetId;
 process.env.LOCALIZATION_ROOT = localizationRoot;
 
 try {
-    let scriptPath;
     if (action === 'push') {
-        scriptPath = path.join(__dirname, 'scripts', 'push-json-to-google-sheets.js');
+        await pushMain();
     } else if (action === 'pull') {
-        scriptPath = path.join(__dirname, 'scripts', 'pull-google-sheets-to-json.js');
+        await pullMain();
     } else {
         core.setFailed(`Unknown action: ${action}`);
         process.exit(1);
     }
-
-    // Execute the corresponding script
-    execSync(`node ${scriptPath}`, { stdio: 'inherit' });
 } catch (error) {
     core.setFailed(`Action failed with error: ${error.message}`);
     process.exit(1);

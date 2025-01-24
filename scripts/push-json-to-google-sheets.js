@@ -125,4 +125,4 @@ if (import.meta.url === `file://${process.argv[1]}`) {
     main();
 }
 
-export { processFolder, parseLocalizationFiles };
+export { processFolder, parseLocalizationFiles, main };
