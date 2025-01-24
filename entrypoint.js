@@ -1,11 +1,7 @@
-const core = require('@actions/core');
-const { execSync } = require('child_process');
-const fs = require('fs');
-const path = require('path');
-
-// Import the scripts to ensure they are included in the bundle
-require('./scripts/push-json-to-google-sheets');
-require('./scripts/pull-google-sheets-to-json');
+import core from '@actions/core';
+import { execSync } from 'child_process';
+import fs from 'fs';
+import path from 'path';
 
 // Get inputs
 const action = core.getInput('action');

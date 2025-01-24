@@ -1,6 +1,6 @@
-const { google } = require('googleapis');
-const fs = require('fs');
-const path = require('path');
+import { google } from 'googleapis';
+import fs from 'fs';
+import path from 'path';
 
 const processSheet = async (sheetName, rows, localizationRoot) => {
     if (!rows || rows.length === 0) {
@@ -97,8 +97,8 @@ const fetchSheetData = async () => {
     console.log('Data successfully pulled and JSON files updated');
 };
 
-if (require.main === module) {
+if (import.meta.url === `file://${process.argv[1]}`) {
     fetchSheetData();
 }
 
-module.exports = { processSheet, fetchSheetData };
+export { processSheet, fetchSheetData };
