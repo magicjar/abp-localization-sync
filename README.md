@@ -39,7 +39,7 @@ jobs:
           action: push
           google_api_key_json: ${{ secrets.GOOGLE_API_KEY_JSON }}
           spreadsheet_id: ${{ vars.SPREADSHEET_ID }}
-          localization_root: ./localization
+          localization_root: ./src/Acme.BookStore.Domain.Shared/Localization
 ```
 
 ### Pull Google Sheets to JSON
@@ -70,10 +70,10 @@ jobs:
           action: pull
           google_api_key_json: ${{ secrets.GOOGLE_API_KEY_JSON }}
           spreadsheet_id: ${{ vars.SPREADSHEET_ID }}
-          localization_root: ./localization
+          localization_root: ./src/Acme.BookStore.Domain.Shared/Localization
 
       - name: Add localization files
-        run: git add localization/**/*.json
+        run: git add src/Acme.BookStore.Domain.Shared/Localization/**/*.json
 
       - name: Commit changes
         run: |
