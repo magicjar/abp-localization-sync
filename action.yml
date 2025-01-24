@@ -1,0 +1,20 @@
+name: "ABP Localization Sync"
+description: "Push and pull ABP.IO JSON localization data to and from Google Sheets"
+author: "Your Name"
+inputs:
+  action:
+    description: "Specify 'push' to push data to Google Sheets or 'pull' to pull data from Google Sheets"
+    required: true
+    default: "push"
+  google_api_key_json:
+    description: "Google API Key JSON"
+    required: true
+  spreadsheet_id:
+    description: "Google Sheets Spreadsheet ID"
+    required: true
+  localization_root:
+    description: "Root directory for localization files"
+    required: true
+runs:
+  using: "node20"
+  main: "entrypoint.js"

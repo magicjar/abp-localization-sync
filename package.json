@@ -1,0 +1,15 @@
+{
+  "name": "abp-localization-sync",
+  "version": "1.0.0",
+  "description": "GitHub Action to sync localization data with Google Sheets",
+  "main": "entrypoint.js",
+  "dependencies": {
+    "googleapis": "^91.0.0"
+  },
+  "devDependencies": {
+    "jest": "^29.0.0"
+  },
+  "scripts": {
+    "test": "jest"
+  }
+}

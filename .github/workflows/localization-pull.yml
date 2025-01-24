@@ -1,0 +1,45 @@
+name: Localization Pull
+
+on:
+  workflow_dispatch:
+  # push:
+  #   branches:
+  #     - main
+  #   paths:
+  #     - localization/**/*.json
+
+jobs:
+  sync_localizations:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Pull Google Sheets to JSON
+        uses: ./  # Use the local action
+        with:
+          action: pull
+          google_api_key_json: ${{ secrets.GOOGLE_API_KEY_JSON }}
+          spreadsheet_id: ${{ vars.SPREADSHEET_ID }}
+          localization_root: ./localization
+
+      - name: Add localization files
+        run: git add localization/**/*.json
+
+      - name: Commit changes
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          if git diff-index --quiet HEAD; then
+            echo "No changes to commit"
+          else
+            git commit -m "Updated localizations from Google Sheets"
+            git push
+          fi
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
