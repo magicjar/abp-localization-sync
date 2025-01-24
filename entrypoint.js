@@ -41,43 +41,43 @@ core.info(`Spreadsheet ID: ${spreadsheetId}`);
 core.info(`Localization Root: ${localizationRoot}`);
 
 // Write the Google API key to a file
-const googleApiKeyFilePath = path.join(process.cwd(), 'google-api-key.json');
+const googleApiKeyFilePath = path.join(__dirname, 'google-api-key.json');
 fs.writeFileSync(googleApiKeyFilePath, JSON.stringify(googleApiKeyJson));
 
 process.env.GOOGLE_APPLICATION_CREDENTIALS = googleApiKeyFilePath;
 process.env.SPREADSHEET_ID = spreadsheetId;
 process.env.LOCALIZATION_ROOT = localizationRoot;
 
+const cleanUp = () => {
+    if (fs.existsSync(googleApiKeyFilePath)) {
+        fs.unlinkSync(googleApiKeyFilePath);
+    }
+};
+
 try {
     if (action === 'push') {
         pushMain().then(() => {
-            // Clean up the Google API key file
-            fs.unlinkSync(googleApiKeyFilePath);
+            cleanUp();
         }).catch((error) => {
             core.setFailed(`Action failed with error: ${error.message}`);
-            // Clean up the Google API key file
-            fs.unlinkSync(googleApiKeyFilePath);
+            cleanUp();
             process.exit(1);
         });
     } else if (action === 'pull') {
         pullMain().then(() => {
-            // Clean up the Google API key file
-            fs.unlinkSync(googleApiKeyFilePath);
+            cleanUp();
         }).catch((error) => {
             core.setFailed(`Action failed with error: ${error.message}`);
-            // Clean up the Google API key file
-            fs.unlinkSync(googleApiKeyFilePath);
+            cleanUp();
             process.exit(1);
         });
     } else {
         core.setFailed(`Unknown action: ${action}`);
-        // Clean up the Google API key file
-        fs.unlinkSync(googleApiKeyFilePath);
+        cleanUp();
         process.exit(1);
     }
 } catch (error) {
     core.setFailed(`Action failed with error: ${error.message}`);
-    // Clean up the Google API key file
-    fs.unlinkSync(googleApiKeyFilePath);
+    cleanUp();
     process.exit(1);
 }
