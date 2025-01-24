@@ -1,8 +1,8 @@
-import core from '@actions/core';
-import fs from 'fs';
-import path from 'path';
-import { main as pushMain } from './scripts/push-json-to-google-sheets.js';
-import { fetchSheetData as pullMain } from './scripts/pull-google-sheets-to-json.js';
+const core = require('@actions/core');
+const fs = require('fs');
+const path = require('path');
+const { main: pushMain } = require('./scripts/push-json-to-google-sheets');
+const { fetchSheetData: pullMain } = require('./scripts/pull-google-sheets-to-json');
 
 // Get inputs
 const action = core.getInput('action');
@@ -49,9 +49,9 @@ process.env.LOCALIZATION_ROOT = localizationRoot;
 
 try {
     if (action === 'push') {
-        await pushMain();
+        pushMain();
     } else if (action === 'pull') {
-        await pullMain();
+        pullMain();
     } else {
         core.setFailed(`Unknown action: ${action}`);
         process.exit(1);

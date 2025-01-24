@@ -1,6 +1,6 @@
-import { google } from 'googleapis';
-import fs from 'fs';
-import path from 'path';
+const { google } = require('googleapis');
+const fs = require('fs');
+const path = require('path');
 
 const parseLocalizationFiles = (folderPath) => {
     const files = fs.readdirSync(folderPath).filter(file => file.endsWith('.json'));
@@ -121,8 +121,8 @@ const main = async () => {
     console.log('Data successfully uploaded to Google Sheets');
 };
 
-if (import.meta.url === `file://${process.argv[1]}`) {
+if (require.main === module) {
     main();
 }
 
-export { processFolder, parseLocalizationFiles, main };
+module.exports = { processFolder, parseLocalizationFiles, main };
