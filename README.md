@@ -97,6 +97,47 @@ Make sure to add the following secrets and variables in your GitHub repository s
 - `SPREADSHEET_ID`: The ID of your Google Sheets spreadsheet.
 - `GITHUB_TOKEN`: The GitHub token for committing changes (automatically provided by GitHub Actions).
 
+To create a `google-api-key.json` file, follow these steps to generate a Google Cloud service account key for your project. This key will be used to authenticate API requests, such as those made to Google Sheets.
+
+
+## Steps to Create `google-api-key.json`
+
+### 1. Set Up a Google Cloud Project
+1. Go to the [Google Cloud Console](https://console.cloud.google.com/).
+2. If you don’t have an existing project, create one:
+   - Click the dropdown at the top-left corner of the console and select **"New Project"**.
+   - Enter a name for your project and click **"Create"**.
+
+### 2. Enable the Google Sheets API
+1. In the Google Cloud Console, navigate to **APIs & Services** → **Library**.
+2. Search for **Google Sheets API** and click on it.
+3. Click **Enable** to activate the API for your project.
+
+### 3. Create a Service Account
+1. Go to **APIs & Services** → **Credentials** in the Google Cloud Console.
+2. Click **Create Credentials** → **Service Account**.
+3. Fill out the service account details:
+   - **Name**: Choose a descriptive name (e.g., `SheetsServiceAccount`).
+   - **Description**: Optional but recommended.
+   - Click **Create and Continue**.
+
+4. Assign a role to the service account:
+   - For Google Sheets, the recommended role is **Editor**.
+   - Click **Continue** → **Done**.
+
+### 4. Generate a JSON Key File
+1. After creating the service account, go back to **APIs & Services** → **Credentials**.
+2. Find the service account you just created in the **Service Accounts** section.
+3. Click on the service account name to open its details.
+4. Go to the **Keys** tab and click **Add Key** → **Create New Key**.
+5. Choose **JSON** as the key type and click **Create**.
+6. A JSON file will be downloaded to your computer. This is your `google-api-key.json`.
+
+### 5. Share Your Google Sheet with the Service Account **(Important)**
+1. Open the Google Sheet you want to access.
+2. Share it with the email address of the service account (found in the JSON file under the `client_email` field).
+3. Grant the service account **Editor** or **Viewer** access, depending on your needs.
+
 ## Running Tests
 
 To run the tests, follow these steps:
