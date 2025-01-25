@@ -1,6 +1,6 @@
 {
   "name": "abp-localization-sync",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "GitHub Action to sync localization data with Google Sheets",
   "main": "dist/index.js",
   "dependencies": {

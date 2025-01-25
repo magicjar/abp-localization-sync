@@ -48,4 +48,4 @@ jobs:
         run: |
           MAJOR_VERSION=$(echo ${{ github.ref_name }} | sed -E 's/^v([0-9]+)\..*/v\1/')
           git tag -fa $MAJOR_VERSION -m "Update $MAJOR_VERSION tag to ${{ github.ref_name }}"
-          git push origin $MAJOR_VERSION
+          git push origin $MAJOR_VERSION --force
