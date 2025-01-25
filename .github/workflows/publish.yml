@@ -38,6 +38,11 @@ jobs:
           draft: false
           prerelease: false
 
+      - name: Configure Git
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+
       - name: Update major version tag
         if: startsWith(github.ref, 'refs/tags/v')
         run: |
