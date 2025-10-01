@@ -26,6 +26,11 @@ const processSheet = async (sheetName, rows, localizationRoot) => {
         }
     }
 
+    const newTexts = {};
+    for (const lang of languages) {
+        newTexts[lang] = {};
+    }
+
     for (const row of translations) {
         const key = row[0];
         if (!key) continue; // Skip empty keys
@@ -33,19 +38,13 @@ const processSheet = async (sheetName, rows, localizationRoot) => {
             const lang = languages[i - 1];
             const value = row[i];
             if (value) { // Only add non-empty values
-                if (jsonFiles[lang].Texts) {
-                    jsonFiles[lang].Texts[key] = value;
-                } else {
-                    if (!jsonFiles[lang].texts) {
-                        jsonFiles[lang].Texts = {};
-                    } else {
-                        jsonFiles[lang].Texts = jsonFiles[lang].texts;
-                        delete jsonFiles[lang].texts;
-                    }
-                    jsonFiles[lang].Texts[key] = value;
-                }
+                newTexts[lang][key] = value;
             }
         }
+    }
+
+    for (const lang of languages) {
+        jsonFiles[lang].Texts = newTexts[lang];
     }
 
     // Save each language's JSON file
